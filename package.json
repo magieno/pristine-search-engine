@@ -23,6 +23,7 @@
   "dependencies": {
     "@awslabs-community-fork/dynamodb-data-mapper": "^0.7.13",
     "@awslabs-community-fork/dynamodb-data-mapper-annotations": "^0.7.13",
+    "@elastic/elasticsearch": "^8.1.0",
     "@pristine-ts/auth0": "^0.0.122",
     "@pristine-ts/aws": "^0.0.122",
     "@pristine-ts/aws-xray": "^0.0.122",
@@ -44,6 +45,7 @@
     "date-fns": "^2.21.1",
     "jsonwebtoken": "^8.5.1",
     "jwk-to-pem": "^2.0.5",
+    "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {

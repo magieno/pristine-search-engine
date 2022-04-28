@@ -11,6 +11,8 @@ import {AwsXrayModule} from "@pristine-ts/aws-xray";
 import {Auth0Module} from "@pristine-ts/auth0";
 import {HttpModule} from "@pristine-ts/http";
 import {StripeModule} from "@pristine-ts/stripe";
+import {EnvironmentVariableResolver, NumberResolver} from "@pristine-ts/configuration";
+import {MysqlClient} from "./clients/mysql.client";
 
 export const AppModuleKeyname =  "pristine.search.engine";
 
@@ -19,6 +21,8 @@ export const AppModule: AppModuleInterface = {
     importServices: [
         // Controllers
 
+        // Clients
+        MysqlClient,
     ],
     importModules: [
         AwsModule,
@@ -36,6 +40,39 @@ export const AppModule: AppModuleInterface = {
     ],
     keyname: AppModuleKeyname,
     configurationDefinitions: [
-
+        {
+            parameterName: "mysql.host",
+            defaultValue: "localhost",
+            isRequired: false,
+            defaultResolvers: [
+                new EnvironmentVariableResolver("MYSQL_HOST"),
+            ],
+        },
+        {
+            parameterName: "mysql.port",
+            defaultValue: "33060",
+            isRequired: false,
+            defaultResolvers: [
+                new NumberResolver(new EnvironmentVariableResolver("MYSQL_PORT")),
+            ],
+        }, {
+            parameterName: "mysql.username",
+            defaultValue: "root",
+            isRequired: false,
+            defaultResolvers: [
+                new EnvironmentVariableResolver("MYSQL_USERNAME"),
+            ],
+        }, {
+            parameterName: "mysql.password",
+            defaultValue: "root",
+            isRequired: false,
+            defaultResolvers: [
+                new EnvironmentVariableResolver("MYSQL_PASSWORD"),
+            ],
+        }, {
+            parameterName: "mysql.database",
+            defaultValue: "pristine-search-engine",
+            isRequired: false,
+        }
     ]
 };
