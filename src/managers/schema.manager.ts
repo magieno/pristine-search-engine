@@ -3,13 +3,16 @@ import {SchemaModel} from "../models/schema.model";
 import {DuplicateFieldIdError} from "../errors/duplicate-field-id.error";
 import {UniqueIdentifierFieldNotFoundError} from "../errors/unique-identifier-field-not-found.error";
 import {ForeignKeySchemaNotFoundError} from "../errors/foreign-key-schema-not-found.error";
+import {SchemaAlreadyExistsError} from "../errors/schema-already-exists.error";
+import {SchemaDoesntExistError} from "../errors/schema-doesnt-exist.error";
 
 @injectable()
 export class SchemaManager {
-    async save(schema: SchemaModel): Promise<boolean> {
-        /**
-         * Validation
-         */
+    /**
+     *
+     * @param schema
+     */
+    private async validateSchemaAndThrow(schema: SchemaModel): Promise<void> {
         // Validate that all the fields have unique names
         const fields: string[] = schema.fields.map(value => value.schemaId) as string[];
         const duplicatesIds = fields.filter(field => fields.indexOf(field) != fields.lastIndexOf(field));
@@ -35,15 +38,43 @@ export class SchemaManager {
                 throw new ForeignKeySchemaNotFoundError(field.schemaId, field.name)
             }
         }
-
-        /**
-         * Save the schema into the storage.
-         */
-
-
     }
 
-    get(id: string): Promise<SchemaModel | null> {
+    /**
+     *
+     * @param schema
+     */
+    async update(schema: SchemaModel): Promise<void> {
+        // Ensure that the schema already exists
+        if(await this.get(schema.id) === null) {
+            throw new SchemaDoesntExistError(schema.id);
+        }
 
+        await this.validateSchemaAndThrow(schema);
+
+        // Save the schema
+    }
+
+    /**
+     *
+     * @param schema
+     */
+    async create(schema: SchemaModel): Promise<void> {
+        // Ensure that the schema doesn't already exist
+        if(await this.get(schema.id) !== null) {
+            throw new SchemaAlreadyExistsError(schema.id);
+        }
+
+        await this.validateSchemaAndThrow(schema);
+
+        // Save the schema
+    }
+
+    /**
+     *
+     * @param id
+     */
+    async get(id: string): Promise<SchemaModel | null> {
+        return null;
     }
 }

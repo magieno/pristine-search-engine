@@ -1,12 +1,12 @@
 import {HttpError} from "@pristine-ts/networking";
 
-export class DuplicateFieldIdError extends HttpError {
-    public constructor(readonly duplicatedFields: string[]) {
-        super(400, "These fields appear more than once: '" + duplicatedFields.toString() + "'.");
+export class SchemaAlreadyExistsError extends HttpError {
+    public constructor(readonly schemaId: string) {
+        super(400, "Cannot create a schema with id: '" + schemaId + "' since it already exists.");
 
         // Set the prototype explicitly.
         // As specified in the documentation in TypeScript
         // https://github.com/Microsoft/TypeScript/wiki/Breaking-Changes#extending-built-ins-like-error-array-and-map-may-no-longer-work
-        Object.setPrototypeOf(this, DuplicateFieldIdError.prototype);
+        Object.setPrototypeOf(this, SchemaAlreadyExistsError.prototype);
     }
 }

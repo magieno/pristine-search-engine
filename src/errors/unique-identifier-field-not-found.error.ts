@@ -1,6 +1,8 @@
-export class UniqueIdentifierFieldNotFoundError extends Error {
+import {HttpError} from "@pristine-ts/networking";
+
+export class UniqueIdentifierFieldNotFoundError extends HttpError {
     public constructor(readonly uniqueIdentifierField: string) {
-        super("Can't find the unique identifier field. The field with id : '" + uniqueIdentifierField +"' cannot be defined as the unique identifier for the schema because it wasn't found.");
+        super(400, "Can't find the unique identifier field. The field with id : '" + uniqueIdentifierField +"' cannot be defined as the unique identifier for the schema because it wasn't found.");
 
         // Set the prototype explicitly.
         // As specified in the documentation in TypeScript

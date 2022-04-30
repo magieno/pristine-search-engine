@@ -1,6 +1,8 @@
-export class ForeignKeySchemaNotFoundError extends Error {
+import {HttpError} from "@pristine-ts/networking";
+
+export class ForeignKeySchemaNotFoundError extends HttpError {
     public constructor(readonly referencingSchemaId: string, readonly fieldId: string) {
-        super("Can't find the schema with unique identifier '" + referencingSchemaId + "'. The schema is being referenced as a foreign key for the field with name: '" + fieldId + "'");
+        super(400, "Can't find the schema with unique identifier '" + referencingSchemaId + "'. The schema is being referenced as a foreign key for the field with name: '" + fieldId + "'");
 
         // Set the prototype explicitly.
         // As specified in the documentation in TypeScript

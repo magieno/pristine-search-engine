@@ -14,6 +14,7 @@ import {StripeModule} from "@pristine-ts/stripe";
 import {EnvironmentVariableResolver, NumberResolver} from "@pristine-ts/configuration";
 import {MysqlClient} from "./clients/mysql.client";
 import {SchemaManager} from "./managers/schema.manager";
+import {SchemaController} from "./controllers/schema.controller";
 
 export const AppModuleKeyname =  "pristine.search.engine";
 
@@ -21,6 +22,7 @@ export const AppModule: AppModuleInterface = {
 
     importServices: [
         // Controllers
+        SchemaController,
 
         // Clients
         MysqlClient,
