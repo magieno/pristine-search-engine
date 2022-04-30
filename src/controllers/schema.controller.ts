@@ -13,13 +13,13 @@ export class SchemaController {
 
     @route(HttpMethod.Post, "")
     @bodyValidation(SchemaModel)
-    create(@body() schemaModel: SchemaModel) {
-        this.schemaManager.
+    async create(@body() schemaModel: SchemaModel) {
+        await this.schemaManager.create(schemaModel);
     }
 
     @route(HttpMethod.Put, "/:id")
     @bodyValidation(SchemaModel)
-    update(@body() schemaModel: SchemaModel) {
-
+    async update(@body() schemaModel: SchemaModel) {
+        await this.schemaManager.update(schemaModel);
     }
 }
