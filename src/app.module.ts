@@ -13,6 +13,7 @@ import {HttpModule} from "@pristine-ts/http";
 import {StripeModule} from "@pristine-ts/stripe";
 import {EnvironmentVariableResolver, NumberResolver} from "@pristine-ts/configuration";
 import {MysqlClient} from "./clients/mysql.client";
+import {SchemaManager} from "./managers/schema.manager";
 
 export const AppModuleKeyname =  "pristine.search.engine";
 
@@ -23,6 +24,9 @@ export const AppModule: AppModuleInterface = {
 
         // Clients
         MysqlClient,
+
+        // Managers
+        SchemaManager,
     ],
     importModules: [
         AwsModule,

@@ -1,7 +1,7 @@
 export enum FieldTypeEnum {
-    text,
-    string,
-    long,
-    integer,
-    reference
+    Text= "TEXT",
+    String = "STRING",
+    Long = "LONG",
+    Integer = "INTEGER",
+    ForeignKey = "FOREIGN_KEY"
 }
